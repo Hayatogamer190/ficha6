@@ -1,0 +1,16 @@
+// Tarefa.jsx
+import React from 'react';
+
+// 6.3.1. Receber via props o texto da tarefa e uma função para remover a tarefa.
+function Tarefa({ textoTarefa, onRemover }) {
+  return (
+    // 6.3.2. Mostrar o texto da tarefa dentro de um elemento 'li' e um botão "Remover".
+    <li>
+      {textoTarefa}
+      {/* 6.3.3. Ao clicar no botão "Remover", deve chamar a função passada por props, removendo a tarefa da lista. */}
+      <button onClick={onRemover}>Remover</button>
+    </li>
+  );
+}
+
+export default Tarefa;
