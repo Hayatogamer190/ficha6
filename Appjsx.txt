@@ -1,0 +1,12 @@
+import './App.css';
+import Mensagem from './components/Mensagem';
+
+
+function App() {
+  return (
+    <>
+      <Mensagem nome="Tiago Neves"/>
+    </>
+  );
+}
+export default App;
