@@ -1,0 +1,52 @@
+// ListaTarefas.jsx
+import React, { useState } from 'react';
+import Tarefa from './Tarefa'; // Importa o componente Tarefa
+
+function ListaTarefas() {
+  // 6.2.1. Utilizar o hook 'useState' para manter um array de tarefas (strings).
+  const [tarefas, setTarefas] = useState([]);
+  const [novaTarefa, setNovaTarefa] = useState(''); // Estado para o input da nova tarefa
+
+  // Função para adicionar uma nova tarefa
+  const adicionarTarefa = () => {
+    if (novaTarefa.trim() !== '') { // Garante que a tarefa não é vazia
+      setTarefas([...tarefas, novaTarefa]); // Adiciona a nova tarefa ao array
+      setNovaTarefa(''); // Limpa o input após adicionar
+    }
+  };
+
+  // Função para remover uma tarefa
+  const removerTarefa = (indexParaRemover) => {
+    // Cria um novo array excluindo a tarefa no índice especificado
+    const novasTarefas = tarefas.filter((_, index) => index !== indexParaRemover);
+    setTarefas(novasTarefas);
+  };
+
+  return (
+    <div>
+      <h1>Minha Lista de Tarefas</h1>
+
+      {/* 6.2.2. Permitir adicionar novas tarefas através de uma caixa de texto e um botão "Adicionar". */}
+      <input
+        type="text"
+        value={novaTarefa}
+        onChange={(e) => setNovaTarefa(e.target.value)}
+        placeholder="Digite uma nova tarefa"
+      />
+      <button onClick={adicionarTarefa}>Adicionar</button>
+
+      {/* 6.2.3. Renderizar a lista de tarefas utilizando o componente 'Tarefa'. */}
+      <ul>
+        {tarefas.map((tarefa, index) => (
+          <Tarefa
+            key={index} // Sempre use uma key única ao renderizar listas
+            textoTarefa={tarefa} // 6.3.1. Receber via props o texto da tarefa
+            onRemover={() => removerTarefa(index)} // 6.3.1. Receber via props uma função para remover a tarefa
+          />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default ListaTarefas;
