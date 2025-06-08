@@ -1,0 +1,144 @@
+import React, { useState } from 'react';
+
+function Form() {
+  // Parte 2: Implementação de hooks para armazenar os dados
+  const [primeiroNome, setPrimeiroNome] = useState('');
+  const [ultimoNome, setUltimoNome] = useState('');
+  const [idade, setIdade] = useState('');
+  const [email, setEmail] = useState('');
+  const [tipoMensagem, setTipoMensagem] = useState('informacao'); // Valor inicial
+  const [aceitaTermos, setAceitaTermos] = useState(false);
+
+  // Parte 2: Implementação de handlers para os eventos 'onClick' dos botões
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Impede o comportamento padrão de recarregar a página
+
+    // 5.5.1 No botão de submeter, valide se todos os campos estão corretamente preenchidos.
+    if (
+      !primeiroNome ||
+      !ultimoNome ||
+      !idade ||
+      !email ||
+      !aceitaTermos
+    ) {
+      alert('Por favor, preencha todos os campos e aceite os termos.');
+      return;
+    }
+
+    // Validação de email simples (pode ser melhorada com regex)
+    if (!email.includes('@') || !email.includes('.')) {
+      alert('Por favor, insira um endereço de email válido.');
+      return;
+    }
+
+    // Validação de idade (opcional, mas boa prática)
+    if (isNaN(idade) || parseInt(idade) <= 0) {
+      alert('Por favor, insira uma idade válida.');
+      return;
+    }
+
+    // 5.5.2 Caso a validação seja bem-sucedida, apresenta um alerta com o texto:
+    // "Formulário submetido com sucesso".
+    alert('Formulário submetido com sucesso!');
+
+    // Opcional: Você pode logar os dados no console para verificar
+    console.log({
+      primeiroNome,
+      ultimoNome,
+      idade,
+      email,
+      tipoMensagem,
+      aceitaTermos,
+    });
+
+    // Opcional: Limpar o formulário após a submissão bem-sucedida (já coberto pelo botão de limpar)
+    // handleClear();
+  };
+
+  const handleClear = () => {
+    setPrimeiroNome('');
+    setUltimoNome('');
+    setIdade('');
+    setEmail('');
+    setTipoMensagem('informacao');
+    setAceitaTermos(false);
+  };
+
+  return (
+    <div>
+      <h1>Formulário de Contato</h1>
+      <form onSubmit={handleSubmit}>
+        {/* 5.2.1 Quatro caixas de texto (input type="text") */}
+        <div>
+          <label htmlFor="primeiroNome">Primeiro Nome:</label>
+          <input
+            type="text"
+            id="primeiroNome"
+            value={primeiroNome} // Parte 2: Cada elemento da interface deve refletir o valor atual do respectivo estado
+            onChange={(e) => setPrimeiroNome(e.target.value)} // Atualiza o estado na digitação
+          />
+        </div>
+        <div>
+          <label htmlFor="ultimoNome">Último Nome:</label>
+          <input
+            type="text"
+            id="ultimoNome"
+            value={ultimoNome}
+            onChange={(e) => setUltimoNome(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="idade">Idade:</label>
+          <input
+            type="text"
+            id="idade"
+            value={idade}
+            onChange={(e) => setIdade(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Endereço de Email:</label>
+          <input
+            type="text"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        {/* 5.2.2 Uma lista de seleção (select) */}
+        <div>
+          <label htmlFor="tipoMensagem">Tipo de Mensagem:</label>
+          <select
+            id="tipoMensagem"
+            value={tipoMensagem}
+            onChange={(e) => setTipoMensagem(e.target.value)}
+          >
+            <option value="informacao">Informação</option>
+            <option value="reclamacao">Reclamação</option>
+            <option value="recomendacao">Recomendação</option>
+          </select>
+        </div>
+
+        {/* 5.2.3 Uma caixa de seleção (checkbox) */}
+        <div>
+          <input
+            type="checkbox"
+            id="aceitaTermos"
+            checked={aceitaTermos} // 'checked' para checkboxes
+            onChange={(e) => setAceitaTermos(e.target.checked)} // 'e.target.checked' para checkboxes
+          />
+          <label htmlFor="aceitaTermos">Li e concordo com os termos de uso e política de privacidade.</label>
+        </div>
+
+        {/* 5.2.4 Dois botões: um para submeter e outro para limpar */}
+        <div>
+          <button type="submit">Submeter</button>
+          <button type="button" onClick={handleClear}>Limpar Formulário</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+export default Form;
