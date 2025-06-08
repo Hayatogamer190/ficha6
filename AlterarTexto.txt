@@ -1,0 +1,16 @@
+import {useState} from 'react';
+
+function AlterarTexto() {
+    const [mensagem, setMensagem] = useState('Clique no botão para alterar a mensagem');
+
+    return(
+        <>
+            <p>{mensagem}</p>
+            <button onClick={() => setMensagem('Obrigado por clicares!')} style={{
+            margin: '5px'}}>Clique aqui</button>
+            <button onClick={() => setMensagem('Clique no botão para alterar a mensagem')} style={{margin: '5px'}}>Reset</button>
+        </>
+    );
+}
+
+export default AlterarTexto;
