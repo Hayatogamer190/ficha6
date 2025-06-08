@@ -1,0 +1,11 @@
+import React from 'react';
+
+const Mensagem = ({ nome }) => {
+    return (
+        <p>
+            Olá, <strong>{nome}</strong>! Bem-vindo ao mundo do React.
+        </p>
+    );
+};
+
+export default Mensagem;
